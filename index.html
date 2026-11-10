@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم البائع الجزائري - الطلبات</title>
+    <title>لوحة تحكم البائع الجزائري - AdminFlux DZ</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style> 
-        body { font-family: 'Cairo', sans-serif; background-color: #020202; color: #B2D5E5; }
-        /* تخصيص الألوان بناءً على ذوقك */
+        body { font-family: 'Cairo', sans-serif; background-color: #0b0f17; color: #B2D5E5; }
         .bg-slate-main { background-color: #020202; }
         .bg-card-dark { background-color: #1F2634; }
         .border-custom { border-color: #2D3748; }
@@ -16,177 +15,212 @@
         .bg-accent-blue { background-color: #B2D5E5; }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
+<body class="flex h-screen overflow-hidden bg-slate-main p-4 items-center justify-center">
 
-    <!-- القائمة الجانبية -->
-    <aside class="w-64 bg-card-dark border-l border-custom flex flex-col justify-between p-4 shadow-xl">
-        <div>
-            <div class="flex items-center gap-3 mb-8 px-2 pt-2">
-                <div class="w-9 h-9 bg-[#B2D5E5] text-[#020202] rounded-xl flex items-center justify-center font-bold text-lg shadow-md">DZ</div>
-                <div>
-                    <span class="font-bold text-base text-white block">متجري الجزائري</span>
-                    <span class="text-[11px] text-[#B2D5E5]/70">إدارة التجارة الإلكترونية</span>
+    <!-- إطار الجهاز الاحترافي تماماً كالصورة الأصلية -->
+    <div class="w-full h-full max-w-[1500px] max-h-[900px] bg-[#0b0f17] border border-gray-800 rounded-3xl shadow-2xl flex overflow-hidden relative">
+
+        <!-- القائمة الجانبية (Sidebar) على اليمين للغة العربية -->
+        <aside class="w-64 bg-[#1F2634] border-l border-custom flex flex-col justify-between p-5 select-none">
+            <div>
+                <!-- الشعار -->
+                <div class="flex items-center gap-3 mb-8 px-2">
+                    <div class="w-9 h-9 bg-emerald-500 rounded-xl flex items-center justify-center font-bold text-black shadow-md">⚡</div>
+                    <div>
+                        <span class="font-bold text-base text-white block tracking-wide">AdminFlux <span class="text-emerald-400 text-xs">DZ</span></span>
+                        <span class="text-[10px] text-gray-400">إدارة التجارة الإلكترونية</span>
+                    </div>
+                </div>
+
+                <!-- القوائم -->
+                <nav class="space-y-1 text-xs">
+                    <a href="#" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#020202] hover:text-white transition">📊 لوحة التحكم</a>
+                    <a href="#" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#020202] hover:text-white transition">📦 المنتجات</a>
+                    <a href="#" class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-emerald-500/10 text-emerald-400 font-bold border-r-4 border-emerald-500">📋 الطلبات <span class="bg-emerald-500 text-black text-[10px] px-2 py-0.5 rounded-full mr-auto font-bold">1</span></a>
+                    <a href="#" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#020202] hover:text-white transition">💳 المدفوعات (CCP)</a>
+                    <a href="#" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#020202] hover:text-white transition">👥 العملاء</a>
+                    <a href="#" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#020202] hover:text-white transition">📈 الإحصاءات</a>
+                </nav>
+            </div>
+
+            <!-- بطاقة الترقية الاحترافية Pro (مستوحاة من الصورة الأصلية) -->
+            <div class="space-y-4">
+                <div class="p-4 bg-gradient-to-b from-[#020202] to-[#1F2634] rounded-2xl border border-custom relative overflow-hidden">
+                    <div class="absolute -top-10 -left-10 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl"></div>
+                    <p class="text-xs font-bold text-white mb-1">Admin Flux <span class="text-emerald-400">Pro</span></p>
+                    <p class="text-[10px] text-gray-400 mb-3 leading-relaxed">تحليلات متقدمة، دعم ياليدين 24/7، أتمتة الروتين.</p>
+                    <button class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2 rounded-xl text-xs transition shadow-lg">تفعيل الآن</button>
+                </div>
+
+                <div class="border-t border-custom pt-3 space-y-1 text-xs">
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white transition">⚙ الإعدادات</a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 text-red-400 hover:bg-red-500/10 rounded-xl transition">🚪 تسجيل الخروج</a>
                 </div>
             </div>
-            <nav class="space-y-1.5 text-sm">
-                <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-[#020202]/50 hover:text-white transition">📊 لوحة التحكم</a>
-                <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-[#020202]/50 hover:text-white transition">📦 المنتجات</a>
-                <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-[#B2D5E5]/10 text-[#B2D5E5] font-semibold border-r-4 border-[#B2D5E5]">📋 الطلبات <span class="bg-[#B2D5E5] text-[#020202] text-xs px-2 py-0.5 rounded-full mr-auto font-bold" id="totalCount">3</span></a>
-                <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-[#020202]/50 hover:text-white transition">💳 المدفوعات (CCP)</a>
-                <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-[#020202]/50 hover:text-white transition">👥 العملاء</a>
-                <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-gray-400 hover:bg-[#020202]/50 hover:text-white transition">📈 الإحصاءات</a>
-            </nav>
-        </div>
-        <div class="p-3.5 bg-[#020202] rounded-xl border border-custom">
-            <p class="text-xs text-[#B2D5E5] font-semibold mb-1">شحن Yalidine & Zrex</p>
-            <p class="text-[11px] text-gray-400">النظام متصل ومستقر</p>
-        </div>
-    </aside>
+        </aside>
 
-    <!-- المحتوى الرئيسي -->
-    <main class="flex-1 flex flex-col h-full overflow-hidden bg-slate-main">
-        
-        <!-- الشريط العلوي المرتب -->
-        <header class="h-18 border-b border-custom flex items-center justify-between px-8 bg-card-dark/50 backdrop-blur">
-            <div class="flex items-center gap-4">
-                <h1 class="text-xl font-bold text-white tracking-wide">إدارة الطلبات</h1>
-                <span class="text-xs bg-[#B2D5E5]/10 text-[#B2D5E5] px-3 py-1 rounded-full border border-[#B2D5E5]/20">السوق الجزائري</span>
-            </div>
+        <!-- المحتوى الرئيسي -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden bg-[#0b0f17]">
             
-            <div class="flex items-center gap-4">
-                <!-- شبحث يعمل حقيقياً -->
-                <div class="relative">
-                    <input type="text" id="searchInput" onkeyup="filterOrders()" placeholder="ابحث برقم الطلب أو اسم الزبون..." class="bg-[#020202] border border-custom rounded-xl px-4 py-2 pr-10 text-xs w-72 text-white placeholder-gray-500 focus:outline-none focus:border-[#B2D5E5] transition">
-                    <span class="absolute right-3.5 top-2.5 text-gray-400 text-xs">🔍</span>
-                </div>
-                <div class="flex items-center gap-3 border-r border-custom pr-4">
-                    <div class="text-left">
-                        <p class="text-xs font-bold text-white">أمينة</p>
-                        <p class="text-[10px] text-[#B2D5E5]">بائعة مستقلة</p>
-                    </div>
-                    <div class="w-9 h-9 bg-card-dark border border-[#B2D5E5]/30 rounded-full flex items-center justify-center font-bold text-[#B2D5E5]">أم</div>
-                </div>
-            </div>
-        </header>
-
-        <!-- تفاصيل الصفحة -->
-        <div class="flex-1 flex overflow-hidden">
-            <div class="flex-1 p-8 overflow-y-auto flex flex-col">
+            <!-- الشريط العلوي الاحترافي -->
+            <header class="h-16 border-b border-custom flex items-center justify-between px-8 bg-[#1F2634]/30 backdrop-blur">
+                <h1 class="text-lg font-bold text-white tracking-wide">الطلبات (Orders)</h1>
                 
-                <!-- أزرار الفلاتر العلوية (تعمل عند النقر لتصفية الجدول) -->
-                <div class="flex items-center justify-between mb-6 bg-card-dark p-3.5 rounded-2xl border border-custom">
-                    <div class="flex items-center gap-2">
-                        <button onclick="filterByStatus('الكل')" id="btn-all" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#B2D5E5] text-[#020202] transition shadow">الكل (3)</button>
-                        <button onclick="filterByStatus('قيد التأكيد')" id="btn-confirm" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#020202] text-gray-300 hover:text-white border border-custom transition">قيد التأكيد الهاتفي</button>
-                        <button onclick="filterByStatus('قيد الشحن')" id="btn-shipping" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#020202] text-gray-300 hover:text-white border border-custom transition">في طريق التوصيل</button>
-                        <button onclick="filterByStatus('تم التوصيل')" id="btn-delivered" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#020202] text-gray-300 hover:text-white border border-custom transition">تم التوصيل</button>
+                <div class="flex items-center gap-4">
+                    <!-- شبحث حقيقي -->
+                    <div class="relative">
+                        <input type="text" id="searchInput" onkeyup="filterOrders()" placeholder="بحث برقم الطلب أو اسم الزبون..." class="bg-[#020202] border border-custom rounded-xl px-4 py-1.5 pr-9 text-xs w-64 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition">
+                        <span class="absolute right-3 top-2 text-gray-400 text-xs">🔍</span>
                     </div>
-                    <div class="text-xs text-gray-400">
-                        عرض الطلبات الخاصة بولايات الوطن
-                    </div>
-                </div>
-
-                <!-- جدول الطلبات -->
-                <div class="bg-card-dark border border-custom rounded-2xl overflow-hidden shadow-xl flex-1">
-                    <table class="w-full text-right border-collapse">
-                        <thead>
-                            <tr class="border-b border-custom text-gray-400 text-xs bg-[#020202]/30">
-                                <th class="p-4 font-semibold">رقم الطلب</th>
-                                <th class="p-4 font-semibold">العميل والولاية</th>
-                                <th class="p-4 font-semibold">طريقة الدفع</th>
-                                <th class="p-4 font-semibold">المبلغ الإجمالي</th>
-                                <th class="p-4 font-semibold">حالة الطلب</th>
-                                <th class="p-4 font-semibold text-center">إجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ordersTableBody" class="divide-y divide-custom text-xs">
-                            <!-- الصف الأول -->
-                            <tr class="hover:bg-[#020202]/40 cursor-pointer transition" data-status="قيد الشحن" onclick="openOrderDetails('DZ-39848', 'محمد أمين', 'الجزائر العاصمة (16)', '4,950 دج', 'قيد الشحن', 'تم الدفع مسبقاً', '0551234567')">
-                                <td class="p-4 font-bold text-[#B2D5E5]">#DZ-39848 <span class="block text-[10px] text-gray-500 font-normal">10 نوفمبر، 12:45</span></td>
-                                <td class="p-4 font-medium text-white">محمد أمين <span class="text-[11px] text-[#B2D5E5]/70 block">الجزائر العاصمة</span></td>
-                                <td class="p-4"><span class="text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg font-medium">✓ تم الدفع (BaridiMob)</span></td>
-                                <td class="p-4 font-bold text-white text-sm">4,950 دج</td>
-                                <td class="p-4"><span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full font-semibold">قيد الشحن (Yalidine)</span></td>
-                                <td class="p-4 text-center"><button class="bg-[#020202] hover:bg-[#B2D5E5] hover:text-[#020202] text-[#B2D5E5] px-3 py-1.5 rounded-lg border border-custom transition font-semibold">التفاصيل</button></td>
-                            </tr>
-                            <!-- الصف الثاني -->
-                            <tr class="hover:bg-[#020202]/40 cursor-pointer transition" data-status="قيد التأكيد" onclick="openOrderDetails('DZ-39849', 'فاطمة الزهراء', 'وهران (31)', '6,800 دج', 'قيد التأكيد', 'الدفع عند الاستلام (COD)', '0669876543')">
-                                <td class="p-4 font-bold text-[#B2D5E5]">#DZ-39849 <span class="block text-[10px] text-gray-500 font-normal">10 نوفمبر، 13:10</span></td>
-                                <td class="p-4 font-medium text-white">فاطمة الزهراء <span class="text-[11px] text-[#B2D5E5]/70 block">وهران</span></td>
-                                <td class="p-4"><span class="text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg font-medium">الدفع عند الاستلام</span></td>
-                                <td class="p-4 font-bold text-white text-sm">6,800 دج</td>
-                                <td class="p-4"><span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full font-semibold">قيد التأكيد الهاتفي</span></td>
-                                <td class="p-4 text-center"><button class="bg-[#020202] hover:bg-[#B2D5E5] hover:text-[#020202] text-[#B2D5E5] px-3 py-1.5 rounded-lg border border-custom transition font-semibold">التفاصيل</button></td>
-                            </tr>
-                            <!-- الصف الثالث -->
-                            <tr class="hover:bg-[#020202]/40 cursor-pointer transition" data-status="تم التوصيل" onclick="openOrderDetails('DZ-39850', 'إسلام بن علي', 'قسنطينة (25)', '3,200 دج', 'تم التوصيل', 'الدفع عند الاستلام (COD)', '0773322119')">
-                                <td class="p-4 font-bold text-[#B2D5E5]">#DZ-39850 <span class="block text-[10px] text-gray-500 font-normal">09 نوفمبر، 16:20</span></td>
-                                <td class="p-4 font-medium text-white">إسلام بن علي <span class="text-[11px] text-[#B2D5E5]/70 block">قسنطينة</span></td>
-                                <td class="p-4"><span class="text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg font-medium">الدفع عند الاستلام</span></td>
-                                <td class="p-4 font-bold text-white text-sm">3,200 دج</td>
-                                <td class="p-4"><span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full font-semibold">تم التوصيل بنجاح</span></td>
-                                <td class="p-4 text-center"><button class="bg-[#020202] hover:bg-[#B2D5E5] hover:text-[#020202] text-[#B2D5E5] px-3 py-1.5 rounded-lg border border-custom transition font-semibold">التفاصيل</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- اللوحة الجانبية لتفاصيل الطلب (تفتح وتغلق بسلاسة) -->
-            <div id="sidePanel" class="w-[420px] bg-card-dark border-r border-custom p-6 flex flex-col justify-between hidden shadow-2xl">
-                <div>
-                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-custom">
-                        <div>
-                            <h2 id="panelOrderId" class="font-bold text-base text-white">تفاصيل الطلب</h2>
-                            <span id="panelStatusBadge" class="text-xs text-[#B2D5E5] mt-1 block">معلومات الشحن والزبون</span>
-                        </div>
-                        <button onclick="closeOrderDetails()" class="text-gray-400 hover:text-white bg-[#020202] w-8 h-8 rounded-xl flex items-center justify-center border border-custom">✕</button>
-                    </div>
-
-                    <div class="bg-[#020202] p-4 rounded-2xl border border-custom mb-6">
-                        <p class="text-[11px] text-gray-400 mb-1">بيانات الزبون ورقم الهاتف</p>
-                        <p id="panelCustomerName" class="font-bold text-white text-sm">اسم الزبون</p>
-                        <p id="panelPhone" class="text-xs text-[#B2D5E5] mt-1 font-semibold">📞 0600000000</p>
-                        <p id="panelPayment" class="text-[11px] text-gray-400 mt-2">طريقة الدفع: -</p>
-                    </div>
-
-                    <div class="space-y-2 mb-6">
-                        <span class="text-xs text-gray-400 font-semibold">المنتجات المطلوبة</span>
-                        <div class="bg-[#020202] p-3 rounded-xl border border-custom flex justify-between items-center text-xs">
-                            <span class="text-white">مستحضرات عناية وجمال × 1</span>
-                            <span class="font-bold text-[#B2D5E5]">المبلغ محتسب</span>
+                    <!-- الإشعارات وبروفایل المستخدم -->
+                    <div class="flex items-center gap-3 border-r border-custom pr-4">
+                        <button class="w-8 h-8 bg-[#020202] border border-custom rounded-full flex items-center justify-center text-gray-300 hover:text-white">🔔</button>
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center font-bold text-xs border border-emerald-500/30">أم</div>
+                            <div class="text-right">
+                                <p class="text-xs font-bold text-white">أمينة بائعة</p>
+                                <p class="text-[9px] text-gray-400">مدير المتجر</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </header>
 
-                <div class="pt-4 border-t border-custom">
-                    <div class="flex justify-between font-bold text-sm mb-4">
-                        <span class="text-gray-400">المجموع الإجمالي:</span>
-                        <span id="panelTotal" class="text-[#B2D5E5] text-base">0 دج</span>
+            <!-- فلاتر الجدول العلوية (كما في الصورة الأصلية تماماً) -->
+            <div class="px-8 py-4 border-b border-custom bg-[#1F2634]/20 flex items-center gap-3 flex-wrap">
+                <div class="flex items-center gap-2 bg-[#020202] px-3 py-1.5 rounded-xl border border-custom text-xs text-gray-300">
+                    <span>الحالة: الكل</span> ▾
+                </div>
+                <div class="flex items-center gap-2 bg-[#020202] px-3 py-1.5 rounded-xl border border-custom text-xs text-gray-300">
+                    <span>الدفع: الكل</span> ▾
+                </div>
+                <div class="flex items-center gap-2 bg-[#020202] px-3 py-1.5 rounded-xl border border-custom text-xs text-gray-300">
+                    <span>التاريخ: 2026/11/10</span> ▾
+                </div>
+                <button class="bg-[#020202] border border-custom text-[#B2D5E5] px-3 py-1.5 rounded-xl text-xs font-semibold hover:border-[#B2D5E5] transition">⚙ كل الفلاتر</button>
+                <div class="mr-auto text-xs text-gray-400">
+                    ترتيب حسب: <span class="text-white font-bold">الإجمالي ▾</span>
+                </div>
+            </div>
+
+            <!-- محتوى الجدول واللوحة الجانبية -->
+            <div class="flex-1 flex overflow-hidden">
+                <div class="flex-1 p-8 overflow-y-auto">
+                    
+                    <!-- جدول الطلبات -->
+                    <div class="bg-[#1F2634] border border-custom rounded-2xl overflow-hidden shadow-xl">
+                        <table class="w-full text-right border-collapse">
+                            <thead>
+                                <tr class="border-b border-custom text-gray-400 text-xs bg-[#020202]/50">
+                                    <th class="p-4 w-10"><input type="checkbox" class="rounded bg-gray-800 border-gray-700"></th>
+                                    <th class="p-4 font-semibold">رقم الطلب</th>
+                                    <th class="p-4 font-semibold">العميل</th>
+                                    <th class="p-4 font-semibold">الدفع</th>
+                                    <th class="p-4 font-semibold">المبلغ الإجمالي</th>
+                                    <th class="p-4 font-semibold">الحالة</th>
+                                    <th class="p-4 font-semibold text-center">إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody" class="divide-y divide-custom text-xs">
+                                <tr class="hover:bg-[#020202]/40 cursor-pointer transition" onclick="openOrderDetails('DZ-39848', 'محمد أمين', 'mohamed@gmail.com', '0551234567', '4,950 دج', 'شحن (Yalidine)', 'مدفوع')">
+                                    <td class="p-4"><input type="checkbox" class="rounded bg-gray-800 border-gray-700"></td>
+                                    <td class="p-4 font-bold text-emerald-400">#DZ-39848 <span class="block text-[10px] text-gray-500 font-normal">10 نوفمبر، 12:45</span></td>
+                                    <td class="p-4 font-medium text-white">محمد أمين <span class="text-[10px] text-gray-400 block">الجزائر العاصمة</span></td>
+                                    <td class="p-4"><span class="text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg font-medium">✓ Paid</span></td>
+                                    <td class="p-4 font-bold text-white text-sm">4,950 دج</td>
+                                    <td class="p-4"><span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full font-semibold">Shipping</span></td>
+                                    <td class="p-4 text-center"><button class="bg-[#020202] hover:bg-emerald-500 hover:text-black text-emerald-400 px-3 py-1 rounded-lg border border-custom transition font-bold">...</button></td>
+                                </tr>
+                                <tr class="hover:bg-[#020202]/40 cursor-pointer transition" onclick="openOrderDetails('DZ-39849', 'فاطمة الزهراء', 'fatima@gmail.com', '0669876543', '6,800 دج', 'قيد التأكيد الهاتفي', 'عند الاستلام')">
+                                    <td class="p-4"><input type="checkbox" class="rounded bg-gray-800 border-gray-700"></td>
+                                    <td class="p-4 font-bold text-emerald-400">#DZ-39849 <span class="block text-[10px] text-gray-500 font-normal">10 نوفمبر، 13:10</span></td>
+                                    <td class="p-4 font-medium text-white">فاطمة الزهراء <span class="text-[10px] text-gray-400 block">وهران</span></td>
+                                    <td class="p-4"><span class="text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg font-medium">Cash On Delivery</span></td>
+                                    <td class="p-4 font-bold text-white text-sm">6,800 دج</td>
+                                    <td class="p-4"><span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full font-semibold">Pending</span></td>
+                                    <td class="p-4 text-center"><button class="bg-[#020202] hover:bg-emerald-500 hover:text-black text-emerald-400 px-3 py-1 rounded-lg border border-custom transition font-bold">...</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="flex gap-2">
-                        <button onclick="alert('تم إرسال طلب التوصيل لشركة الشحن بنجاح!')" class="flex-1 bg-[#B2D5E5] text-[#020202] font-bold py-2.5 rounded-xl text-xs hover:opacity-90 transition shadow">
-                            🚚 شحن مع ياليدين
-                        </button>
-                        <button onclick="alert('تم إلغاء الطلب وتسجيله كمرتجع.')" class="bg-[#020202] text-red-400 hover:bg-red-500/10 border border-custom font-bold px-4 py-2.5 rounded-xl text-xs transition">
-                            إلغاء الطلب
-                        </button>
+                </div>
+
+                <!-- اللوحة الجانبية لتفاصيل الطلب (Side Panel تماماً كالصورة الأصلية الاحترافية) -->
+                <div id="sidePanel" class="w-[400px] bg-[#1F2634] border-r border-custom p-6 flex flex-col justify-between hidden shadow-2xl">
+                    <div>
+                        <!-- رأس الطلب -->
+                        <div class="flex justify-between items-center mb-6 pb-4 border-b border-custom">
+                            <div>
+                                <h2 id="panelOrderId" class="font-bold text-sm text-white">Order #039848</h2>
+                                <span class="inline-block mt-1 bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded text-[10px] font-bold">Shipping</span>
+                                <span class="text-[10px] text-gray-400 mr-2">Placed on Nov 10</span>
+                            </div>
+                            <button onclick="closeOrderDetails()" class="text-gray-400 hover:text-white bg-[#020202] w-7 h-7 rounded-lg flex items-center justify-center border border-custom">✕</button>
+                        </div>
+
+                        <!-- قسم الزبون -->
+                        <div class="mb-5">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[11px] text-gray-400 font-semibold">Customer</span>
+                                <button class="bg-[#020202] hover:bg-gray-800 text-gray-300 text-[10px] px-2.5 py-1 rounded-lg border border-custom">Profile ‹</button>
+                            </div>
+                            <div class="bg-[#020202] p-3 rounded-xl border border-custom flex items-center gap-3">
+                                <div class="w-9 h-9 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center font-bold text-xs">م</div>
+                                <div>
+                                    <p id="panelCustomerName" class="font-bold text-white text-xs">محمد أمين</p>
+                                    <p id="panelEmail" class="text-[10px] text-gray-400">mohamed@gmail.com</p>
+                                    <p id="panelPhone" class="text-[10px] text-emerald-400 mt-0.5">📞 0551234567</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- قائمة المنتجات داخل الطلب -->
+                        <div class="space-y-2 mb-4">
+                            <span class="text-[11px] text-gray-400 font-semibold">Order items</span>
+                            <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                                <div class="flex items-center justify-between bg-[#020202] p-2.5 rounded-xl border border-custom">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center text-xs">👟</div>
+                                        <div>
+                                            <p class="text-[11px] font-bold text-white">حذاء رياضي أنيق (Samba)</p>
+                                            <p class="text-[10px] text-emerald-400">4,500 دج × 1</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-bold text-xs text-white">4,500 دج</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الأزرار السفلية (تتبع واسترداد) -->
+                    <div class="pt-4 border-t border-custom">
+                        <div class="flex justify-between font-bold text-xs mb-4">
+                            <span class="text-gray-400">Total:</span>
+                            <span id="panelTotal" class="text-emerald-400 text-base">4,950 دج</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="alert('تم تتبع الشحنة مع ياليدين بنجاح!')" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center gap-1">
+                                <span>📍</span> Track (Yalidine)
+                            </button>
+                            <button onclick="alert('تم طلب الاسترداد.')" class="bg-[#020202] text-red-400 hover:bg-red-500/10 border border-custom font-bold px-3 py-2.5 rounded-xl text-xs transition">
+                                Refund
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
-    <!-- البرمجة لتفعيل البحث، الفلاتر، واللوحة الجانبية -->
+    <!-- الجافاسكريبت لتشغيل الأزرار واللوحة -->
     <script>
-        function openOrderDetails(id, customer, wilaya, total, status, payment, phone) {
+        function openOrderDetails(id, customer, email, phone, total, status, payment) {
             document.getElementById('sidePanel').classList.remove('hidden');
-            document.getElementById('panelOrderId').innerText = "طلب #" + id;
-            document.getElementById('panelCustomerName').innerText = customer + " - " + wilaya;
-            document.getElementById('panelTotal').innerText = total;
-            document.getElementById('panelStatusBadge').innerText = "الحالة: " + status;
-            document.getElementById('panelPayment').innerText = "طريقة الدفع: " + payment;
+            document.getElementById('panelOrderId').innerText = "Order #" + id;
+            document.getElementById('panelCustomerName').innerText = customer;
+            document.getElementById('panelEmail').innerText = email;
             document.getElementById('panelPhone').innerText = "📞 " + phone;
+            document.getElementById('panelTotal').innerText = total;
         }
 
         function closeOrderDetails() {
@@ -199,25 +233,6 @@
             rows.forEach(row => {
                 let text = row.innerText.toLowerCase();
                 row.style.display = text.includes(input) ? '' : 'none';
-            });
-        }
-
-        function filterByStatus(status) {
-            // تحديث تصميم الأزرار
-            ['btn-all', 'btn-confirm', 'btn-shipping', 'btn-delivered'].forEach(id => {
-                let btn = document.getElementById(id);
-                btn.className = "px-4 py-2 rounded-xl text-xs font-semibold bg-[#020202] text-gray-300 hover:text-white border border-custom transition";
-            });
-            
-            event.target.className = "px-4 py-2 rounded-xl text-xs font-bold bg-[#B2D5E5] text-[#020202] transition shadow";
-
-            let rows = document.querySelectorAll('#ordersTableBody tr');
-            rows.forEach(row => {
-                if (status === 'الكل' || row.getAttribute('data-status') === status) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
             });
         }
     </script>
