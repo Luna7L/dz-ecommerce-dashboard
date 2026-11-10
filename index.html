@@ -1,283 +1,524 @@
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdminFlux - Orders Dashboard</title>
-    <!-- Tailwind CSS v4 -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #1b1f23; color: #9ca3af; }
-        .bg-main-dark { background-color: #111111; }
-        .bg-card-dark { background-color: #1a1e24; }
-        .bg-sidebar-dark { background-color: #15181d; }
-        .border-theme { border-color: #2a2d2b; }
-        .text-neon-green { color: #65c510; }
-        .bg-neon-green { background-color: #65c510; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luna Store | إدارة الطلبات</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+:root {
+  --bg:#10111a;
+  --panel:#181a26;
+  --panel2:#202232;
+  --border:#2b2d40;
+  --text:#eeedf5;
+  --muted:#9294a8;
+  --purple:#8962cf;
+  --green:#39b88d;
+  --blue:#64a3e8;
+  --orange:#dfa451;
+  --red:#dc7787;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'IBM Plex Sans Arabic',sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh}
+.sidebar{
+  position:fixed;right:0;top:0;bottom:0;width:235px;
+  background:#151622;border-left:1px solid var(--border);
+  padding:26px 16px;display:flex;flex-direction:column;
+}
+.brand{
+  display:flex;align-items:center;gap:12px;
+  padding:5px 10px 38px;
+}
+.logo{
+  width:38px;height:38px;border-radius:9px;
+  background:#7954b7;display:grid;place-items:center;
+  font-family:Georgia;font-size:22px;font-weight:bold;
+}
+.brand strong{font-size:16px;letter-spacing:1px}
+.brand small{display:block;color:var(--muted);font:10px Arial;margin-top:4px}
+.section-label{color:#74788d;font-size:11px;padding:0 12px 12px}
+.nav{display:grid;gap:5px}
+.nav a{
+  display:flex;align-items:center;gap:13px;
+  padding:13px 12px;border-radius:8px;
+  color:#b9bbca;text-decoration:none;font-size:13px;
+}
+.nav a svg{width:18px;height:18px}
+.nav a:hover,.nav a.active{
+  background:#302747;color:white;
+}
+.nav a.active{box-shadow:inset -2px 0 #a47be9}
+.nav .count{margin-right:auto;color:#c4a9f0;font-size:11px}
+.sidebar-bottom{margin-top:auto;border-top:1px solid var(--border);padding:18px 8px 0}
+.online{color:#a9b6b1;font-size:12px}
+.online span{color:var(--green);margin-left:7px}
+.version{color:#666b80;font-size:10px;margin-top:12px}
+
+.main{margin-right:235px;min-height:100vh}
+.topbar{
+  height:75px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;background:#141521;
+}
+.breadcrumb{font-size:12px;color:#a8a9ba}
+.breadcrumb span{color:#62667b;margin:0 9px}
+.top-actions{display:flex;align-items:center;gap:18px}
+.search{
+  display:flex;align-items:center;gap:10px;
+  background:var(--panel2);border:1px solid var(--border);
+  padding:0 13px;border-radius:8px;height:40px;width:350px;
+}
+.search svg{width:17px;color:var(--muted)}
+.search input{
+  border:0;outline:0;background:transparent;color:white;
+  width:100%;font-size:12px;
+}
+.avatar{
+  width:35px;height:35px;border-radius:50%;
+  background:#393149;display:grid;place-items:center;
+  color:#dfd0f5;font-weight:600;
+}
+.content{padding:32px;max-width:1600px;margin:auto}
+.heading{
+  display:flex;align-items:flex-end;
+  justify-content:space-between;gap:20px;margin-bottom:27px;
+}
+.eyebrow{color:#a687d9;font-size:11px}
+h1{font-size:27px;margin:5px 0;font-weight:700}
+.subtitle{color:var(--muted);font-size:12px}
+.actions{display:flex;gap:9px}
+.btn{
+  border:1px solid var(--border);border-radius:7px;
+  padding:10px 15px;background:var(--panel2);
+  color:#dddce8;font-size:12px;
+}
+.btn.primary{background:#7652b8;border-color:#7652b8;color:white}
+.btn:hover{filter:brightness(1.15)}
+
+.filters{
+  display:flex;align-items:end;justify-content:space-between;
+  gap:15px;padding:17px;margin-bottom:18px;
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:10px;
+}
+.filter-group{display:flex;gap:14px;flex-wrap:wrap}
+.field{display:grid;gap:6px;min-width:145px}
+.field label{font-size:10px;color:var(--muted)}
+.field select{
+  height:36px;background:var(--panel2);
+  border:1px solid #383a4e;border-radius:6px;
+  color:#e4e2ed;padding:0 9px;font-size:11px;
+  outline:none;
+}
+.table-card{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:11px;overflow:hidden;
+}
+.table-heading{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:19px 20px;
+}
+.table-heading h2{font-size:15px;margin:0}
+.table-heading p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.table-heading small{color:var(--muted);font-size:10px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:850px}
+thead{background:#202232}
+th{
+  padding:14px 12px;font-size:11px;color:#aeb0c1;
+  font-weight:600;text-align:center;white-space:nowrap;
+}
+td{
+  text-align:center;padding:13px 12px;
+  border-top:1px solid #2a2c3e;font-size:12px;
+}
+tbody tr:hover{background:#202232}
+.order-id{font:bold 12px Arial;color:#e5e2ef;direction:ltr}
+.customer{display:flex;align-items:center;justify-content:center;gap:9px}
+.customer-avatar{
+  width:33px;height:33px;border-radius:50%;
+  background:#353044;color:#d9c9f3;
+  display:grid;place-items:center;font-weight:600;
+}
+.customer-name{font-weight:600}
+.customer-email{font:10px Arial;color:var(--muted);margin-top:3px;direction:ltr}
+.date{font:11px Arial;color:#c5c5d2;direction:ltr;line-height:1.6}
+.amount{font:bold 13px Arial;direction:ltr}
+.status{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 10px;border-radius:5px;font-size:10px;
+}
+.status:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.done{color:var(--green);background:#18352f}
+.ship{color:var(--blue);background:#1b2c43}
+.processing{color:var(--orange);background:#3c3021}
+.cancel{color:var(--red);background:#3a252e}
+.payment{font-size:11px;color:#c5c5d3}
+.row-btn{
+  padding:7px 11px;border:1px solid #393b50;
+  border-radius:5px;background:#25273a;color:#d5c9ec;
+  font-size:10px;
+}
+.row-btn:hover{border-color:var(--purple)}
+.footer{
+  display:flex;justify-content:space-between;
+  align-items:center;padding:17px 19px;
+  border-top:1px solid var(--border);
+  color:var(--muted);font-size:11px;
+}
+.pagination{display:flex;gap:5px;direction:ltr}
+.pagination button{
+  width:30px;height:30px;border:1px solid var(--border);
+  background:var(--panel2);color:white;border-radius:5px;
+}
+.pagination button.active{background:#7652b8;border-color:#8962cf}
+.empty{text-align:center;padding:55px;color:var(--muted)}
+.modal-bg{
+  position:fixed;inset:0;background:#000b;
+  display:none;align-items:center;justify-content:center;
+  padding:20px;z-index:10;
+}
+.modal-bg.open{display:flex}
+.modal{
+  width:480px;max-width:100%;background:#191b29;
+  border:1px solid var(--border);border-radius:10px;padding:23px;
+}
+.modal-head{display:flex;justify-content:space-between;align-items:center}
+.modal-head h2{font-size:18px}
+.close{background:none;border:0;color:white;font-size:22px}
+.details{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px 0}
+.details small{display:block;color:var(--muted);margin-bottom:6px}
+.details strong{font-size:12px}
+.modal select{width:100%;padding:10px;background:var(--panel2);color:white;border:1px solid var(--border);border-radius:6px;margin:10px 0}
+.modal .btn{margin-top:8px}
+.toast{
+  position:fixed;bottom:20px;left:20px;background:#19372f;
+  border:1px solid #34785e;color:#d4f2e4;
+  border-radius:7px;padding:12px 17px;display:none;z-index:20;
+}
+@media(max-width:850px){
+  .sidebar{width:190px}
+  .main{margin-right:190px}
+  .content{padding:20px}
+  .search{width:220px}
+}
+@media(max-width:650px){
+  .sidebar{display:none}
+  .main{margin-right:0}
+  .topbar{padding:0 13px}
+  .breadcrumb{display:none}
+  .search{width:180px}
+  .content{padding:16px 12px}
+  .heading{align-items:flex-start;flex-direction:column}
+  .filters{align-items:stretch;flex-direction:column}
+  .filter-group{display:grid;grid-template-columns:1fr 1fr}
+  .field{min-width:0}
+  .actions{width:100%}
+  .actions button{flex:1}
+  .table-heading{align-items:flex-start;flex-direction:column;gap:8px}
+  .footer{align-items:flex-start;flex-direction:column;gap:12px}
+}
+</style>
 </head>
-<body class="flex h-screen overflow-hidden items-center justify-center p-4">
 
-    <!-- إطار التابلت الاحترافي المطابق للصورة الأصلية -->
-    <div class="w-full h-full max-w-[1440px] max-h-[880px] bg-main-dark border-4 border-[#2f333a] rounded-3xl shadow-2xl flex overflow-hidden relative">
+<body>
+<div class="app">
 
-        <!-- 1. القائمة الجانبية (Sidebar) على اليسار تماماً كالنسخة الأصلية -->
-        <aside class="w-64 bg-sidebar-dark border-r border-theme flex flex-col justify-between p-6 select-none">
-            <div>
-                <!-- الشعار -->
-                <div class="flex items-center gap-3 mb-10">
-                    <div class="w-8 h-8 bg-neon-green rounded-lg flex items-center justify-center shadow-lg">
-                        <div class="w-3 h-3 bg-black rounded-sm"></div>
-                    </div>
-                    <span class="font-bold text-lg text-white tracking-wide">AdminFlux</span>
-                </div>
+<aside class="sidebar">
+  <div class="brand">
+    <div class="logo">L</div>
+    <div><strong>LUNA STORE</strong><small>COMMERCE MANAGEMENT</small></div>
+  </div>
 
-                <!-- روابط القائمة -->
-                <nav class="space-y-1.5 text-xs font-medium">
-                    <a href="#" class="flex items-center gap-3.5 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#22272e] hover:text-white transition">
-                        <span class="text-sm">🏠</span> Dashboard
-                    </a>
-                    <a href="#" class="flex items-center gap-3.5 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#22272e] hover:text-white transition">
-                        <span class="text-sm">📦</span> Products
-                    </a>
-                    <a href="#" class="flex items-center gap-3.5 px-3.5 py-3 rounded-xl bg-[#22272e] text-white font-semibold border-l-4 border-neon-green shadow-inner">
-                        <span class="text-sm">📋</span> Orders
-                    </a>
-                    <a href="#" class="flex items-center gap-3.5 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#22272e] hover:text-white transition">
-                        <span class="text-sm">💳</span> Payments
-                    </a>
-                    <a href="#" class="flex items-center gap-3.5 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#22272e] hover:text-white transition">
-                        <span class="text-sm">👥</span> Customers
-                    </a>
-                    <a href="#" class="flex items-center gap-3.5 px-3.5 py-3 rounded-xl text-gray-400 hover:bg-[#22272e] hover:text-white transition">
-                        <span class="text-sm">📊</span> Statistics
-                    </a>
-                </nav>
-            </div>
+  <div class="section-label">القائمة الرئيسية</div>
+  <nav class="nav">
+    <a href="#"><i data-lucide="layout-dashboard"></i> لوحة التحكم</a>
+    <a href="#" class="active"><i data-lucide="shopping-bag"></i> الطلبات <span class="count" id="count">8</span></a>
+    <a href="#"><i data-lucide="package"></i> المنتجات</a>
+    <a href="#"><i data-lucide="users"></i> العملاء</a>
+    <a href="#"><i data-lucide="megaphone"></i> التسويق</a>
+    <a href="#"><i data-lucide="chart-column"></i> التقارير</a>
+  </nav>
 
-            <!-- الروابط السفلية والإعدادات -->
-            <div class="space-y-4 pt-4 border-t border-theme text-xs font-medium">
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white transition">⚙ Settings</a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-red-400 hover:bg-red-500/10 rounded-xl transition">🚪 Log out</a>
-            </div>
-        </aside>
+  <div class="section-label" style="margin-top:25px">النظام</div>
+  <nav class="nav">
+    <a href="#"><i data-lucide="settings"></i> الإعدادات</a>
+    <a href="#"><i data-lucide="headset"></i> الدعم الفني</a>
+  </nav>
 
-        <!-- 2. المحتوى الرئيسي (Main Content) -->
-        <main class="flex-1 flex flex-col h-full overflow-hidden bg-main-dark">
-            
-            <!-- الشريط العلوي (Header) -->
-            <header class="h-18 border-b border-theme flex items-center justify-between px-8 bg-sidebar-dark/40 backdrop-blur">
-                <h1 class="text-xl font-bold text-white tracking-wide">Orders</h1>
-                
-                <div class="flex items-center gap-6">
-                    <!-- صندوق البحث الحقيقي -->
-                    <div class="relative">
-                        <input type="text" id="searchInput" onkeyup="filterOrders()" placeholder="Search" class="bg-[#15181d] border border-theme rounded-xl px-4 py-2 pl-10 text-xs w-72 text-white placeholder-gray-500 focus:outline-none focus:border-neon-green transition shadow-inner">
-                        <span class="absolute left-3.5 top-2.5 text-gray-400 text-xs">🔍</span>
-                    </div>
+  <div class="sidebar-bottom">
+    <div class="online"><span>●</span> المتجر يعمل</div>
+    <div class="version">Luna Store · v1.0.0</div>
+  </div>
+</aside>
 
-                    <!-- إشعارات وبروفايل المدير -->
-                    <div class="flex items-center gap-4 border-l border-theme pl-6">
-                        <button class="w-9 h-9 bg-[#15181d] border border-theme rounded-full flex items-center justify-center text-gray-300 hover:text-white transition">🔔</button>
-                        <div class="flex items-center gap-3">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Avatar" class="w-9 h-9 rounded-full object-cover border border-neon-green/40">
-                            <div class="text-left">
-                                <p class="text-xs font-bold text-white leading-tight">Mateo Petty</p>
-                                <p class="text-[10px] text-gray-400">Sales manager</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+<main class="main">
+<header class="topbar">
+  <div class="breadcrumb">إدارة المتجر <span>/</span> الطلبات</div>
+  <div class="top-actions">
+    <label class="search">
+      <i data-lucide="search"></i>
+      <input id="search" placeholder="البحث برقم الطلب أو اسم العميل...">
+    </label>
+    <div class="avatar">م</div>
+  </div>
+</header>
 
-            <!-- شريط الفلاتر العلوي (Filters Bar) -->
-            <div class="px-8 py-4 border-b border-theme bg-sidebar-dark/20 flex items-center gap-3 text-xs font-medium">
-                <div class="flex items-center gap-2 bg-[#15181d] px-3.5 py-2 rounded-xl border border-theme text-gray-300">
-                    <span>Status: All</span> ▾
-                </div>
-                <div class="flex items-center gap-2 bg-[#15181d] px-3.5 py-2 rounded-xl border border-theme text-gray-300">
-                    <span>Payment: All</span> ▾
-                </div>
-                <div class="flex items-center gap-2 bg-[#15181d] px-3.5 py-2 rounded-xl border border-theme text-gray-300">
-                    <span>Date: 2024/11/08</span> ▾
-                </div>
-                <button class="flex items-center gap-2 bg-[#15181d] border border-theme text-white px-4 py-2 rounded-xl hover:border-neon-green transition">
-                    ⚙ All filters
-                </button>
-                <div class="ml-auto text-gray-400">
-                    Sort by: <span class="text-white font-semibold">Total ▾</span>
-                </div>
-            </div>
+<section class="content">
+  <div class="heading">
+    <div>
+      <div class="eyebrow">إدارة المبيعات</div>
+      <h1>الطلبات</h1>
+      <div class="subtitle">إدارة ومتابعة جميع طلبات المتجر.</div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="reset">إعادة ضبط</button>
+      <button class="btn primary" id="export">↓ تصدير الطلبات</button>
+    </div>
+  </div>
 
-            <!-- منطقة الجدول واللوحة الجانبية التفصيلية -->
-            <div class="flex-1 flex overflow-hidden">
-                
-                <!-- جدول الطلبات -->
-                <div class="flex-1 p-8 overflow-y-auto">
-                    <div class="bg-card-dark border border-theme rounded-2xl overflow-hidden shadow-xl">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="border-b border-theme text-gray-400 text-xs bg-[#15181d]/50">
-                                    <th class="p-4 w-10"><input type="checkbox" class="rounded bg-gray-800 border-gray-700 accent-[#65c510]"></th>
-                                    <th class="p-4 font-semibold">Order No</th>
-                                    <th class="p-4 font-semibold">Customer</th>
-                                    <th class="p-4 font-semibold">Payment</th>
-                                    <th class="p-4 font-semibold">Total</th>
-                                    <th class="p-4 font-semibold">Status</th>
-                                    <th class="p-4 font-semibold text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ordersTableBody" class="divide-y divide-theme text-xs font-medium">
-                                <tr class="hover:bg-[#15181d]/50 cursor-pointer transition" onclick="openOrderDetails('039848', 'Haris Ortiz', 'haris@gmail.com', '+1 (182) 348-5969', '$495.00', 'Shipping', 'Paid', ['ASUS ExpertBook B9 OLED', 'ROG MAXIMUS Z790'])">
-                                    <td class="p-4"><input type="checkbox" class="rounded bg-gray-800 border-gray-700 accent-[#65c510]" checked></td>
-                                    <td class="p-4 font-bold text-white">#039848 <span class="block text-[10px] text-gray-500 font-normal">Aug 11, 12:45</span></td>
-                                    <td class="p-4 text-white flex items-center gap-2.5">
-                                        <div class="w-7 h-7 bg-gray-700 rounded-full flex items-center justify-center text-xs font-bold text-white">HO</div>
-                                        Haris Ortiz
-                                    </td>
-                                    <td class="p-4"><span class="text-[#65c510] bg-[#65c510]/10 px-2.5 py-1 rounded-lg">✓ Paid</span></td>
-                                    <td class="p-4 font-bold text-white">$495.00</td>
-                                    <td class="p-4"><span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full font-semibold">Shipping</span></td>
-                                    <td class="p-4 text-center text-gray-400 font-bold tracking-widest">•••</td>
-                                </tr>
-                                <tr class="hover:bg-[#15181d]/50 cursor-pointer transition" onclick="openOrderDetails('030283', 'Alistair Dunlap', 'alistair@gmail.com', '+1 (555) 234-8900', '$495.00', 'Pickups', 'Cancelled', ['ROG Gladius III Wireless'])">
-                                    <td class="p-4"><input type="checkbox" class="rounded bg-gray-800 border-gray-700 accent-[#65c510]"></td>
-                                    <td class="p-4 font-bold text-white">#030283 <span class="block text-[10px] text-gray-500 font-normal">Aug 11, 10:32</span></td>
-                                    <td class="p-4 text-white flex items-center gap-2.5">
-                                        <div class="w-7 h-7 bg-gray-700 rounded-full flex items-center justify-center text-xs font-bold text-white">AD</div>
-                                        Alistair Dunlap
-                                    </td>
-                                    <td class="p-4"><span class="text-red-400 bg-red-500/10 px-2.5 py-1 rounded-lg">✕ Cancelled</span></td>
-                                    <td class="p-4 font-bold text-white">$495.00</td>
-                                    <td class="p-4"><span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full font-semibold">Pickups</span></td>
-                                    <td class="p-4 text-center text-gray-400 font-bold tracking-widest">•••</td>
-                                </tr>
-                                <tr class="hover:bg-[#15181d]/50 cursor-pointer transition" onclick="openOrderDetails('031856', 'Kacie Velasquez', 'kacie@gmail.com', '+1 (333) 987-1234', '$283.89', 'Delivered', 'Paid', ['RROG Moonstone Ace L'])">
-                                    <td class="p-4"><input type="checkbox" class="rounded bg-gray-800 border-gray-700 accent-[#65c510]"></td>
-                                    <td class="p-4 font-bold text-white">#031856 <span class="block text-[10px] text-gray-500 font-normal">Aug 11, 10:16</span></td>
-                                    <td class="p-4 text-white flex items-center gap-2.5">
-                                        <div class="w-7 h-7 bg-gray-700 rounded-full flex items-center justify-center text-xs font-bold text-white">KV</div>
-                                        Kacie Velasquez
-                                    </td>
-                                    <td class="p-4"><span class="text-[#65c510] bg-[#65c510]/10 px-2.5 py-1 rounded-lg">✓ Paid</span></td>
-                                    <td class="p-4 font-bold text-white">$283.89</td>
-                                    <td class="p-4"><span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full font-semibold">Delivered</span></td>
-                                    <td class="p-4 text-center text-gray-400 font-bold tracking-widest">•••</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+  <div class="filters">
+    <div class="filter-group">
+      <div class="field">
+        <label>حالة الطلب</label>
+        <select id="statusFilter">
+          <option value="">جميع الحالات</option>
+          <option>تم التسليم</option>
+          <option>قيد الشحن</option>
+          <option>قيد المعالجة</option>
+          <option>ملغي</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>طريقة الدفع</label>
+        <select id="paymentFilter">
+          <option value="">جميع الطرق</option>
+          <option>بطاقة بنكية</option>
+          <option>PayPal</option>
+          <option>الدفع عند الاستلام</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>ترتيب الطلبات</label>
+        <select id="sort">
+          <option value="new">الأحدث أولاً</option>
+          <option value="old">الأقدم أولاً</option>
+          <option value="high">الأعلى سعراً</option>
+          <option value="low">الأقل سعراً</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
-                <!-- 3. اللوحة الجانبية لتفاصيل الطلب (Side Panel تماماً كالصورة الأصلية) -->
-                <div id="sidePanel" class="w-[420px] bg-card-dark border-l border-theme p-6 flex flex-col justify-between shadow-2xl">
-                    <div>
-                        <!-- رأس تفاصيل الطلب -->
-                        <div class="flex justify-between items-center mb-6 pb-4 border-b border-theme">
-                            <div>
-                                <h2 id="panelOrderId" class="font-bold text-sm text-white">Order #039848</h2>
-                                <div class="flex items-center gap-2 mt-1">
-                                    <span class="bg-blue-500/10 text-blue-400 px-2.5 py-0.5 rounded text-[10px] font-bold">Shipping</span>
-                                    <span class="text-[10px] text-gray-400">Placed on Aug 11, 12:45</span>
-                                </div>
-                            </div>
-                            <button onclick="closeOrderDetails()" class="text-gray-400 hover:text-white bg-[#15181d] w-7 h-7 rounded-lg flex items-center justify-center border border-theme">✕</button>
-                        </div>
-
-                        <!-- قسم الزبون -->
-                        <div class="mb-5">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-[11px] text-gray-400 font-semibold">Customer</span>
-                                <button class="bg-[#15181d] hover:bg-gray-800 text-gray-300 text-[10px] px-3 py-1 rounded-lg border border-theme transition">Profile ‹</button>
-                            </div>
-                            <div class="bg-[#15181d] p-3.5 rounded-xl border border-theme flex items-center gap-3">
-                                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Customer" class="w-10 h-10 rounded-full object-cover">
-                                <div>
-                                    <p id="panelCustomerName" class="font-bold text-white text-xs">Haris Ortiz</p>
-                                    <p id="panelEmail" class="text-[10px] text-gray-400">haris@gmail.com</p>
-                                    <p id="panelPhone" class="text-[10px] text-[#65c510] mt-0.5">+1 (182) 348-5969</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- قائمة المنتجات (Order items) -->
-                        <div class="space-y-2 mb-4">
-                            <span class="text-[11px] text-gray-400 font-semibold">Order items</span>
-                            <div id="panelProducts" class="space-y-2 max-h-52 overflow-y-auto pr-1">
-                                <div class="flex items-center justify-between bg-[#15181d] p-2.5 rounded-xl border border-theme">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-xs">💻</div>
-                                        <div>
-                                            <p class="text-[11px] font-bold text-white">ASUS ExpertBook B9 OLED</p>
-                                            <p class="text-[10px] text-[#65c510]">$1,998.00 × 1</p>
-                                        </div>
-                                    </div>
-                                    <span class="font-bold text-xs text-white">$1,998.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- التكلفة والأزرار السفلية (Track & Refund) -->
-                    <div class="pt-4 border-t border-theme">
-                        <div class="flex justify-between font-bold text-sm mb-4">
-                            <span class="text-gray-400 text-xs">Total:</span>
-                            <span id="panelTotal" class="text-white text-base font-bold">$495.00</span>
-                        </div>
-                        <div class="flex gap-2.5">
-                            <button onclick="alert('Tracking shipment...')" class="flex-1 bg-[#15181d] hover:bg-[#22272e] text-white border border-theme font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center gap-2">
-                                <span>📍</span> Track
-                            </button>
-                            <button onclick="alert('Refund processed.')" class="flex-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center gap-2">
-                                <span>↩</span> Refund
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </main>
+  <section class="table-card">
+    <div class="table-heading">
+      <div><h2>جميع الطلبات</h2><p id="description">قائمة الطلبات المسجلة في المتجر</p></div>
+      <small>العملة: الدينار الجزائري</small>
     </div>
 
-    <!-- البرمجة البرمجية للتفاعل -->
-    <script>
-        function openOrderDetails(id, name, email, phone, total, status, payment, items) {
-            document.getElementById('panelOrderId').innerText = "Order #" + id;
-            document.getElementById('panelCustomerName').innerText = name;
-            document.getElementById('panelEmail').innerText = email;
-            document.getElementById('panelPhone').innerText = phone;
-            document.getElementById('panelTotal').innerText = total;
-            
-            let productsContainer = document.getElementById('panelProducts');
-            productsContainer.innerHTML = '';
-            items.forEach(item => {
-                productsContainer.innerHTML += `
-                    <div class="flex items-center justify-between bg-[#15181d] p-2.5 rounded-xl border border-theme">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 bg-gray-800 rounded-lg flex items-center justify-center text-xs">📦</div>
-                            <div>
-                                <p class="text-[11px] font-bold text-white">${item}</p>
-                                <p class="text-[10px] text-[#65c510]">${total} × 1</p>
-                            </div>
-                        </div>
-                        <span class="font-bold text-xs text-white">${total}</span>
-                    </div>`;
-            });
-        }
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>رقم الطلب</th>
+            <th>العميل</th>
+            <th>التاريخ</th>
+            <th>المبلغ</th>
+            <th>الحالة</th>
+            <th>طريقة الدفع</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="empty" id="empty" hidden>لا توجد طلبات مطابقة لبحثك.</div>
+    </div>
 
-        function closeOrderDetails() {
-            // إغلاق اللوحة الجانبية أو إعادة تعيينها
-        }
+    <div class="footer">
+      <span id="range"></span>
+      <div class="pagination" id="pages"></div>
+    </div>
+  </section>
 
-        function filterOrders() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let rows = document.querySelectorAll('#ordersTableBody tr');
-            rows.forEach(row => {
-                let text = row.innerText.toLowerCase();
-                row.style.display = text.includes(input) ? '' : 'none';
-            });
-        }
-    </script>
+  <div style="padding:22px 0;color:#676b80;font-size:10px">
+    © 2026 Luna Store. جميع الحقوق محفوظة.
+  </div>
+</section>
+</main>
+</div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">تفاصيل الطلب</h2>
+      <button class="close" id="close">×</button>
+    </div>
+    <div class="details" id="details"></div>
+    <label style="font-size:12px;color:#aaa">تحديث حالة الطلب</label>
+    <select id="newStatus">
+      <option>قيد المعالجة</option>
+      <option>قيد الشحن</option>
+      <option>تم التسليم</option>
+      <option>ملغي</option>
+    </select>
+    <button class="btn primary" id="save">حفظ التغييرات</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const orders=[
+{id:1047,name:"مريم أحمد",email:"mariam@example.com",date:"2026-11-08",time:"16:45",amount:4990,status:"تم التسليم",payment:"بطاقة بنكية"},
+{id:1046,name:"سارة خالد",email:"sarah@example.com",date:"2026-11-08",time:"15:32",amount:7950,status:"قيد الشحن",payment:"PayPal"},
+{id:1045,name:"أسماء يوسف",email:"asmaa@example.com",date:"2026-11-08",time:"14:20",amount:2990,status:"قيد المعالجة",payment:"الدفع عند الاستلام"},
+{id:1044,name:"نور الدين رحماني",email:"noor@example.com",date:"2026-11-08",time:"13:17",amount:12000,status:"تم التسليم",payment:"بطاقة بنكية"},
+{id:1043,name:"دينا محمد",email:"dina@example.com",date:"2026-11-08",time:"12:50",amount:5475,status:"ملغي",payment:"PayPal"},
+{id:1042,name:"ليلى بن عمر",email:"leila@example.com",date:"2026-11-07",time:"18:05",amount:8800,status:"قيد الشحن",payment:"بطاقة بنكية"},
+{id:1041,name:"ياسمين علي",email:"yasmin@example.com",date:"2026-11-07",time:"11:25",amount:3500,status:"قيد المعالجة",payment:"الدفع عند الاستلام"},
+{id:1040,name:"آدم بوعلام",email:"adam@example.com",date:"2026-11-06",time:"09:40",amount:21000,status:"تم التسليم",payment:"PayPal"}
+];
+
+let page=1;
+let active=null;
+const size=5;
+const el=id=>document.getElementById(id);
+
+function money(n){
+ return new Intl.NumberFormat('ar-DZ').format(n)+' دج';
+}
+function cls(s){
+ return {'تم التسليم':'done','قيد الشحن':'ship','قيد المعالجة':'processing','ملغي':'cancel'}[s];
+}
+function notify(message){
+ el('toast').textContent=message;
+ el('toast').style.display='block';
+ setTimeout(()=>el('toast').style.display='none',2300);
+}
+function filtered(){
+ let q=el('search').value.toLowerCase().trim();
+ let s=el('statusFilter').value;
+ let p=el('paymentFilter').value;
+ let data=orders.filter(o=>
+  (!q||(`${o.id} ${o.name} ${o.email}`).toLowerCase().includes(q))&&
+  (!s||o.status===s)&&(!p||o.payment===p)
+ );
+ let sort=el('sort').value;
+ data.sort((a,b)=>{
+  if(sort==='old')return a.id-b.id;
+  if(sort==='high')return b.amount-a.amount;
+  if(sort==='low')return a.amount-b.amount;
+  return b.id-a.id;
+ });
+ return data;
+}
+function render(){
+ let data=filtered();
+ let totalPages=Math.max(1,Math.ceil(data.length/size));
+ page=Math.min(page,totalPages);
+ let start=(page-1)*size;
+ let current=data.slice(start,start+size);
+
+ el('rows').innerHTML=current.map(o=>`
+ <tr>
+  <td><span class="order-id">#${o.id}</span></td>
+  <td>
+   <div class="customer">
+    <div class="customer-avatar">${o.name.charAt(0)}</div>
+    <div>
+     <div class="customer-name">${o.name}</div>
+     <div class="customer-email">${o.email}</div>
+    </div>
+   </div>
+  </td>
+  <td class="date">${o.date}<br>${o.time}</td>
+  <td class="amount">${money(o.amount)}</td>
+  <td><span class="status ${cls(o.status)}">${o.status}</span></td>
+  <td class="payment">${o.payment}</td>
+  <td><button class="row-btn" data-id="${o.id}">عرض التفاصيل</button></td>
+ </tr>`).join('');
+
+ el('empty').hidden=current.length>0;
+ el('range').textContent=data.length?
+ `عرض ${start+1}–${start+current.length} من ${data.length} طلبات`:
+ 'لا توجد طلبات';
+ el('description').textContent=`عدد الطلبات المطابقة: ${data.length}`;
+ el('count').textContent=orders.length;
+
+ el('pages').innerHTML=
+ `<button data-page="${Math.max(1,page-1)}" ${page===1?'disabled':''}>‹</button>`+
+ Array.from({length:totalPages},(_,i)=>
+ `<button data-page="${i+1}" class="${page===i+1?'active':''}">${i+1}</button>`
+ ).join('')+
+ `<button data-page="${Math.min(totalPages,page+1)}" ${page===totalPages?'disabled':''}>›</button>`;
+ lucide.createIcons();
+}
+function openOrder(id){
+ active=orders.find(o=>o.id===Number(id));
+ if(!active)return;
+ el('modalTitle').textContent=`تفاصيل الطلب #${active.id}`;
+ el('details').innerHTML=`
+ <div><small>اسم العميل</small><strong>${active.name}</strong></div>
+ <div><small>البريد الإلكتروني</small><strong>${active.email}</strong></div>
+ <div><small>تاريخ الطلب</small><strong>${active.date} ${active.time}</strong></div>
+ <div><small>إجمالي الطلب</small><strong>${money(active.amount)}</strong></div>
+ <div><small>طريقة الدفع</small><strong>${active.payment}</strong></div>
+ <div><small>الحالة الحالية</small><strong>${active.status}</strong></div>`;
+ el('newStatus').value=active.status;
+ el('modal').classList.add('open');
+}
+function closeModal(){el('modal').classList.remove('open')}
+
+['search','statusFilter','paymentFilter','sort'].forEach(id=>{
+ el(id).addEventListener(id==='search'?'input':'change',()=>{page=1;render()});
+});
+el('reset').onclick=()=>{
+ el('search').value='';
+ el('statusFilter').value='';
+ el('paymentFilter').value='';
+ el('sort').value='new';
+ page=1;render();
+};
+el('rows').addEventListener('click',e=>{
+ const btn=e.target.closest('[data-id]');
+ if(btn)openOrder(btn.dataset.id);
+});
+el('pages').addEventListener('click',e=>{
+ const btn=e.target.closest('[data-page]');
+ if(btn&&!btn.disabled){page=Number(btn.dataset.page);render()}
+});
+el('close').onclick=closeModal;
+el('modal').onclick=e=>{if(e.target===el('modal'))closeModal()};
+el('save').onclick=()=>{
+ if(!active)return;
+ active.status=el('newStatus').value;
+ closeModal();render();
+ notify('تم تحديث حالة الطلب في الجلسة الحالية.');
+};
+el('export').onclick=()=>{
+ let data=filtered();
+ let csv='\uFEFF'+[
+ ['رقم الطلب','العميل','البريد','التاريخ','المبلغ','الحالة','الدفع'],
+ ...data.map(o=>[o.id,o.name,o.email,o.date+' '+o.time,o.amount,o.status,o.payment])
+ ].map(row=>row.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');
+ let url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+ let a=document.createElement('a');
+ a.href=url;a.download='Luna-Store-Orders.csv';a.click();
+ URL.revokeObjectURL(url);
+ notify('تم تصدير الطلبات بنجاح.');
+};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+lucide.createIcons();
+render();
+</script>
 </body>
 </html>
